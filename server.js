@@ -15,7 +15,7 @@ app.use(express.static('public'));
 app.use(bodyParser.urlencoded({ extended: true }));
 app.set('view engine', 'pug');
 app.set('views','./views');
-app.use(morgan(':method :host :status :param[id] - :response-time ms :body'));
+app.use(morgan(':method :host :status  - :response-time ms :body'));
 
 // Rutas
 const filmsRoutes = require("./routes/films.routes")

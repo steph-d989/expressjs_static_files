@@ -1,4 +1,5 @@
-const request = require('request');
+/* const request = require('request');
+
 const getFilms = async (req, res) => {
     try {
         let title = req.body.title;
@@ -6,34 +7,40 @@ const getFilms = async (req, res) => {
 
         request(url, function (err, response, body) {
             if (err) {
-                alert('error en el proceso')
+                console.log('error en el proceso')
                 res.redirect('/');
             } else {
                 let films = JSON.parse(body).Search;
                 console.log(films);
-                res.render('films', { Films: films});
+                res.render('film.pug', { Films: films });
             }
         });
-        /* const title = req.query.title;
-        console.log(title);
-
-        if (!title) {
-            return res.redirect('/');
-        }
-
-        const url = `https://www.omdbapi.com/?apikey=${process.env.API_KEY}&s=${title}`;
-        const response = await fetch(url);
-        const movie = await response.json();
-        console.log(movie);
-
-        if (movie.Response === 'False') {
-            res.render('film', { movie: null, error: 'No se encontró la película.' });
-        } else {
-            res.render('film', { movie, error: null });
-        } */
     } catch (error) {
         console.error(error);
-        res.render('film', { movie: null, error: 'Error retrieving data from OMDB API' });
+        res.render('/film.pug', { movie: null, error: 'Error retrieving data from OMDB API' });
+    }
+};
+ */
+
+const axios = require('axios');
+
+const getFilms = async (req, res) => {
+    try {
+        let title = req.body.title;
+        let url = `https://www.omdbapi.com/?apikey=${process.env.API_KEY}&s=${title}`;
+
+        const response = await axios.get(url);
+        const films = response.data.Search;
+
+        if (!films) {
+            res.render('film', { Films: [], error: 'No films found' });
+        } else {
+            console.log(films);
+            res.render('film', { Films: films });
+        }
+    } catch (error) {
+        console.error(error);
+        res.render('film', { Films: [], error: 'Error retrieving data from OMDB API' });
     }
 };
 

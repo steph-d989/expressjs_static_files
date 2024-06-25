@@ -17,10 +17,10 @@ html(lang="en")
             section
                 each film in Films
                     article
-                        p Título: #{film.title}
-                        p Autor: #{film.autor}
-                        p Descripción: #{film.description}
-                        img(src=film.image, alt=film.title width="300")   
+                        p Título: #{film.Title}
+                        p Director: #{film.Director}
+                        p Año: #{film.Year}
+                        img(src=film.Poster, alt=film.Title width="300")   
 
            
         include ./footer.pug
