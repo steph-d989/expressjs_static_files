@@ -33,14 +33,14 @@ const getFilms = async (req, res) => {
         const films = response.data.Search;
 
         if (!films) {
-            res.render('film', { Films: [], error: 'No films found' });
+            res.redirect('/', { Films: [], error: 'No films found' });
         } else {
             console.log(films);
             res.render('film', { Films: films });
         }
     } catch (error) {
         console.error(error);
-        res.render('film', { Films: [], error: 'Error retrieving data from OMDB API' });
+        res.redirect('/', { Films: [], error: 'Error retrieving data from OMDB API' });
     }
 };
 
