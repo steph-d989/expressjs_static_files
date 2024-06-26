@@ -8,6 +8,7 @@ const getFilms = async (req, res) => {
         request(url, function (err, response, body) {
             if (err) {
                 console.log('error en el proceso')
+
                 res.redirect('/');
             } else {
                 let films = JSON.parse(body).Search;
@@ -36,7 +37,7 @@ const getFilms = async (req, res) => {
             res.redirect('/', { Films: [], error: 'No films found' });
         } else {
             console.log(films);
-            res.render('film', { Films: films });
+            res.render(`film`, { Films: films });
         }
     } catch (error) {
         console.error(error);
